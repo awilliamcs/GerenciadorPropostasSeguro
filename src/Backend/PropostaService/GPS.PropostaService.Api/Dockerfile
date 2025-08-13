@@ -12,16 +12,20 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["GPS.PropostaService.Api.csproj", "."]
-RUN dotnet restore "./GPS.PropostaService.Api.csproj"
+COPY ["PropostaService/GPS.PropostaService.Api/GPS.PropostaService.Api.csproj", "PropostaService/GPS.PropostaService.Api/"]
+COPY ["PropostaService/GPS.PropostaService.Application/GPS.PropostaService.Application.csproj", "PropostaService/GPS.PropostaService.Application/"]
+COPY ["PropostaService/GPS.PropostaService.Domain/GPS.PropostaService.Domain.csproj", "PropostaService/GPS.PropostaService.Domain/"]
+COPY ["PropostaService/GPS.PropostaService.Infrastructure/GPS.PropostaService.Infrastructure.csproj", "PropostaService/GPS.PropostaService.Infrastructure/"]
+COPY ["GPS.CrossCutting/GPS.CrossCutting.csproj", "GPS.CrossCutting/"]
+RUN dotnet restore "PropostaService/GPS.PropostaService.Api/GPS.PropostaService.Api.csproj"
 COPY . .
-WORKDIR "/src/."
-RUN dotnet build "./GPS.PropostaService.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/PropostaService/GPS.PropostaService.Api"
+RUN dotnet build "GPS.PropostaService.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./GPS.PropostaService.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "GPS.PropostaService.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
