@@ -52,21 +52,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IPropostaService, PropostaService>();
 builder.Services.AddScoped<IPropostaRepository, PropostaRepository>();
 
-var mapperConfigExpression = new MapperConfigurationExpression();
-mapperConfigExpression.AddProfile<PropostaProfile>();
-
-var mapperConfig = new MapperConfiguration(mapperConfigExpression, null);
-var mapper = mapperConfig.CreateMapper();
-
-builder.Services.AddSingleton(mapper);
+// Configurar AutoMapper usando DI
+builder.Services.AddAutoMapper(typeof(PropostaProfile));
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// Configurar Swagger para funcionar também em Production
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
