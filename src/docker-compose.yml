@@ -1,0 +1,74 @@
+version: "3.8"
+
+services:
+  # =======================
+  # Databases (SQL Server)
+  # =======================
+  gps-sqlserver-pessoa:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: gps-pessoa
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Senha123"
+    ports:
+      - "14331:1433"
+    restart: always
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost,1433", "-U", "sa", "-P", "Senha123", "-C", "-Q", "SELECT 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  gps-sqlserver-proposta:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: gps-proposta
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Senha123"
+    ports:
+      - "14332:1433"
+    restart: always
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost,1433", "-U", "sa", "-P", "Senha123", "-C", "-Q", "SELECT 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  gps-sqlserver-contratacao:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: gps-contratacao
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Senha123"
+    ports:
+      - "14333:1433"
+    restart: always
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost,1433", "-U", "sa", "-P", "Senha123", "-C", "-Q", "SELECT 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # =======================
+  # RabbitMQ
+  # =======================
+
+  gps-rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: gps-rabbitmq
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"      # AMQP port
+      - "15672:15672"    # Management UI port
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+      RABBITMQ_DEFAULT_VHOST: /
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5

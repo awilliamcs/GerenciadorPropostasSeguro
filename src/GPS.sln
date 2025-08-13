@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36401.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.SharedKernel", "Backend\GPS.SharedKernel\GPS.SharedKernel.csproj", "{B875BFE7-A967-430F-81F0-8059FF661C44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.CrossCutting", "Backend\GPS.CrossCutting\GPS.CrossCutting.csproj", "{B875BFE7-A967-430F-81F0-8059FF661C44}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.PropostaService.Domain", "Backend\PropostaService\GPS.PropostaService.Domain\GPS.PropostaService.Domain.csproj", "{3E9426E5-3EED-4E09-82BF-BCA5C1558F98}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PropostaService", "PropostaService", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AutenticacaoService", "AutenticacaoService", "{E72146C4-DD5D-4AE7-8DD6-69763D36E300}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PessoaService", "PessoaService", "{E72146C4-DD5D-4AE7-8DD6-69763D36E300}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ContratacaoService", "ContratacaoService", "{EC007DAD-82DF-48D5-9CE2-39941C5C7A34}"
 EndProject
@@ -29,17 +29,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.ContratacaoService.Doma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.ContratacaoService.Infrastructure", "Backend\ContratacaoService\GPS.ContratacaoService.Infrastructure\GPS.ContratacaoService.Infrastructure.csproj", "{6D3A6890-33E0-46B6-8DD7-F6C3F9E9489A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.AutenticacaoService.Api", "Backend\AutenticacaoService\GPS.AutenticacaoService.Api\GPS.AutenticacaoService.Api.csproj", "{2EE59947-252E-48A1-BBE3-441FCDD74958}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.PessoaService.Api", "Backend\PessoaService\GPS.PessoaService.Api\GPS.PessoaService.Api.csproj", "{2EE59947-252E-48A1-BBE3-441FCDD74958}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.AutenticacaoService.Application", "Backend\AutenticacaoService\GPS.AutenticacaoService.Application\GPS.AutenticacaoService.Application.csproj", "{4F4C2F8B-951B-4601-97C9-B586D63C9C77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.PessoaService.Application", "Backend\PessoaService\GPS.PessoaService.Application\GPS.PessoaService.Application.csproj", "{4F4C2F8B-951B-4601-97C9-B586D63C9C77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.AutenticacaoService.Domain", "Backend\AutenticacaoService\GPS.AutenticacaoService.Domain\GPS.AutenticacaoService.Domain.csproj", "{448F5CD7-AE16-45AC-A39F-3557DE97E3DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.PessoaService.Domain", "Backend\PessoaService\GPS.PessoaService.Domain\GPS.PessoaService.Domain.csproj", "{448F5CD7-AE16-45AC-A39F-3557DE97E3DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.AutenticacaoService.Infrastructure", "Backend\AutenticacaoService\GPS.AutenticacaoService.Infrastructure\GPS.AutenticacaoService.Infrastructure.csproj", "{703C7B13-7AC8-43FA-9725-F652807F0418}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.PessoaService.Infrastructure", "Backend\PessoaService\GPS.PessoaService.Infrastructure\GPS.PessoaService.Infrastructure.csproj", "{703C7B13-7AC8-43FA-9725-F652807F0418}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.PropostaService.Tests", "Backend\Tests\GPS.PropostaService.Tests\GPS.PropostaService.Tests.csproj", "{14113AFB-6755-4D7C-AB84-02A68469CC7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.AutenticacaoService.Tests", "Backend\Tests\GPS.AutenticacaoService.Tests\GPS.AutenticacaoService.Tests.csproj", "{126831C8-F575-462C-B7EA-324EBD0E87E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.PessoaService.Tests", "Backend\Tests\GPS.PessoaService.Tests\GPS.PessoaService.Tests.csproj", "{126831C8-F575-462C-B7EA-324EBD0E87E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPS.ContratacaoService.Tests", "Backend\Tests\GPS.ContratacaoService.Tests\GPS.ContratacaoService.Tests.csproj", "{4599D1AC-F334-4470-83EF-91BAE4FE117F}"
 EndProject
