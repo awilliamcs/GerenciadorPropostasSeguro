@@ -46,35 +46,35 @@ docker-compose.yml
 
 ```mermaid
 flowchart LR
-  %% Camadas
-  subgraph "API (Controllers)"
-    C1[Pessoa Controller]
-    C2[Proposta Controller]
-    C3[Contratação Controller]
+  %% Layers
+  subgraph "API - Controllers"
+    C1["Pessoa Controller"]
+    C2["Proposta Controller"]
+    C3["Contratacao Controller"]
   end
 
-  subgraph "Application (Serviços e Consumers)"
-    S1[PessoaService]
-    S2[PropostaService]
-    S3[ContratacaoService]
+  subgraph "Application - Services and Consumers"
+    S1["PessoaService"]
+    S2["PropostaService"]
+    S3["ContratacaoService"]
   end
 
-  subgraph "Domain (Entidades e Ports)"
-    E[Entidades de Dominio]
-    P[Ports (Interfaces de Repositorio)]
+  subgraph "Domain - Entities and Ports"
+    E["Domain Entities"]
+    P["Ports - Repository Interfaces"]
   end
 
-  subgraph "Infrastructure (Repos, DB, Messaging)"
-    R1[PessoaRepository]
-    R2[PropostaRepository]
-    R3[ContratacaoRepository]
-    MQ[(RabbitMQ)]
-    DB1[(PessoaDb)]
-    DB2[(PropostaDb)]
-    DB3[(ContratacaoDb)]
+  subgraph "Infrastructure - Repositories, DB, Messaging"
+    R1["PessoaRepository"]
+    R2["PropostaRepository"]
+    R3["ContratacaoRepository"]
+    MQ["RabbitMQ"]
+    DB1["PessoaDb"]
+    DB2["PropostaDb"]
+    DB3["ContratacaoDb"]
   end
 
-  %% Fluxos
+  %% Flows
   C1 --> S1
   C2 --> S2
   C3 --> S3
@@ -87,9 +87,9 @@ flowchart LR
   P --> R2
   P --> R3
 
-  S1 <-->|Eventos| MQ
-  S2 <-->|Eventos| MQ
-  S3 <-->|Eventos| MQ
+  S1 <-->|Events| MQ
+  S2 <-->|Events| MQ
+  S3 <-->|Events| MQ
 
   R1 --> DB1
   R2 --> DB2
