@@ -1,0 +1,114 @@
+services:
+  # =======================
+  # Databases (SQL Server)
+  # =======================
+  gps-sqlserver-pessoa:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: gps-pessoa
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Senha123"
+    ports:
+      - "14331:1433"
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/1433'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  gps-sqlserver-proposta:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: gps-proposta
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Senha123"
+    ports:
+      - "14332:1433"
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/1433'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  gps-sqlserver-contratacao:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: gps-contratacao
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Senha123"
+    ports:
+      - "14333:1433"
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/1433'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # =======================
+  # RabbitMQ
+  # =======================
+  gps-rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: gps-rabbitmq
+    # opcional manter hostname, mas ent�o use sempre "rabbitmq" como host
+    # hostname: rabbitmq
+    ports:
+      - "5672:5672"      # AMQP
+      - "15672:15672"    # Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+      RABBITMQ_DEFAULT_VHOST: /
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # =======================
+  # APIs (Microservices)
+  # =======================
+  pessoa-api:
+   build:
+    context: ./Backend
+    dockerfile: PessoaService/GPS.PessoaService.Api/Dockerfile
+   container_name: gps-pessoa-api
+   ports:
+    - "5001:8080"
+   depends_on:
+    - gps-sqlserver-pessoa
+    - gps-rabbitmq
+   restart: unless-stopped
+
+  proposta-api:
+   build:
+    context: ./Backend
+    dockerfile: PropostaService/GPS.PropostaService.Api/Dockerfile
+   container_name: gps-proposta-api
+   ports:
+    - "5002:8080"
+   depends_on:
+    - gps-sqlserver-proposta
+    - gps-rabbitmq
+   restart: unless-stopped
+
+  contratacao-api:
+   build:
+    context: ./Backend
+    dockerfile: ContratacaoService/GPS.ContratacaoService.Api/Dockerfile
+   container_name: gps-contratacao-api
+   ports:
+    - "5003:8080"
+   depends_on:
+    - gps-sqlserver-contratacao
+    - gps-rabbitmq
+   restart: unless-stopped
+   
+volumes:
+  rabbitmq_data:
