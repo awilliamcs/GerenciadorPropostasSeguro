@@ -53,15 +53,15 @@ flowchart LR
     C3[Contratação Controller]
   end
 
-  subgraph "Application (Serviços & Consumers)"
+  subgraph "Application (Serviços e Consumers)"
     S1[PessoaService]
     S2[PropostaService]
     S3[ContratacaoService]
   end
 
-  subgraph "Domain (Entidades & Ports)"
-    E[Entidades de Domínio]
-    P[Ports (Interfaces de Repositório)]
+  subgraph "Domain (Entidades e Ports)"
+    E[Entidades de Dominio]
+    P[Ports (Interfaces de Repositorio)]
   end
 
   subgraph "Infrastructure (Repos, DB, Messaging)"
