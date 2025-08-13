@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="15.0.1" />
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\GPS.CrossCutting\GPS.CrossCutting.csproj" />
+    <ProjectReference Include="..\GPS.PropostaService.Domain\GPS.PropostaService.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
