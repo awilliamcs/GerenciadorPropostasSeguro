@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="xunit" Version="2.5.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
+    <PackageReference Include="NSubstitute" Version="5.1.0" />
+    <PackageReference Include="AutoMapper" Version="15.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0" />
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.19" />
+    <PackageReference Include="MassTransit" Version="8.2.0" />
+    <PackageReference Include="MassTransit.TestFramework" Version="8.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutenticacaoService\GPS.AutenticacaoService.Api\GPS.AutenticacaoService.Api.csproj" />
+    <ProjectReference Include="..\..\AutenticacaoService\GPS.AutenticacaoService.Application\GPS.AutenticacaoService.Application.csproj" />
+    <ProjectReference Include="..\..\AutenticacaoService\GPS.AutenticacaoService.Domain\GPS.AutenticacaoService.Domain.csproj" />
+    <ProjectReference Include="..\..\AutenticacaoService\GPS.AutenticacaoService.Infrastructure\GPS.AutenticacaoService.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\GPS.CrossCutting\GPS.CrossCutting.csproj" />
+  </ItemGroup>
+
+</Project>

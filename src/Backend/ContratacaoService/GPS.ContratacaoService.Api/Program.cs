@@ -2,6 +2,7 @@ using AutoMapper;
 using GPS.ContratacaoService.Application.Interfaces;
 using GPS.ContratacaoService.Application.Mapping;
 using GPS.ContratacaoService.Application.Services;
+using GPS.ContratacaoService.Application.Consumers;
 using GPS.ContratacaoService.Domain.Interfaces;
 using GPS.ContratacaoService.Infrastructure;
 using GPS.ContratacaoService.Infrastructure.Clients;
@@ -18,9 +19,8 @@ builder.Services.AddDbContext<ContratacaoDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ContratacaoDb"))
 );
 
-builder.Services.AddMassTransitWithRabbitMq(builder.Configuration);
+builder.Services.AddMassTransitWithRabbitMqFromAssemblies(builder.Configuration, typeof(SalvarContratacaoConsumer).Assembly);
 
-// Configuração JWT
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var key = Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]!);
 
@@ -65,7 +65,13 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configurar Swagger para funcionar também em Production
+// Executar migrações automaticamente
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ContratacaoDbContext>();
+    await context.Database.MigrateAsync();
+}
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
