@@ -1,8 +1,8 @@
-using AutoMapper;
 using GPS.CrossCutting.Messaging;
 using GPS.PropostaService.Application.Interfaces;
 using GPS.PropostaService.Application.Mapping;
 using GPS.PropostaService.Application.Services;
+using GPS.PropostaService.Application.Consumers;
 using GPS.PropostaService.Domain.Interfaces;
 using GPS.PropostaService.Infrastructure;
 using GPS.PropostaService.Infrastructure.Repositories;
@@ -17,9 +17,9 @@ builder.Services.AddDbContext<PropostaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PropostaDb"))
 );
 
-builder.Services.AddMassTransitWithRabbitMq(builder.Configuration);
+builder.Services.AddMassTransitWithRabbitMqFromAssemblies(builder.Configuration, typeof(SalvarPropostaConsumer).Assembly);
 
-// Configuração JWT
+
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var key = Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]!);
 
@@ -51,13 +51,17 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IPropostaService, PropostaService>();
 builder.Services.AddScoped<IPropostaRepository, PropostaRepository>();
-
-// Configurar AutoMapper usando DI
 builder.Services.AddAutoMapper(typeof(PropostaProfile));
 
 var app = builder.Build();
 
-// Configurar Swagger para funcionar também em Production
+// Executar migrações automaticamente
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<PropostaDbContext>();
+    await context.Database.MigrateAsync();
+}
+
 app.UseSwagger();
 app.UseSwaggerUI();
 

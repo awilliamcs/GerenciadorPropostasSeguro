@@ -47,6 +47,21 @@ services:
       timeout: 5s
       retries: 10
 
+  gps-sqlserver-autenticacao:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: gps-autenticacao
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Senha123"
+    ports:
+      - "14330:1433"
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/1433'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
   # =======================
   # RabbitMQ
   # =======================
@@ -74,6 +89,18 @@ services:
   # =======================
   # APIs (Microservices)
   # =======================
+  autenticacao-api:
+   build:
+    context: ./Backend
+    dockerfile: AutenticacaoService/GPS.AutenticacaoService.Api/Dockerfile
+   container_name: gps-autenticacao-api
+   ports:
+    - "5000:8080"
+   depends_on:
+    - gps-sqlserver-autenticacao
+    - gps-rabbitmq
+   restart: unless-stopped
+
   pessoa-api:
    build:
     context: ./Backend
@@ -109,6 +136,22 @@ services:
     - gps-sqlserver-contratacao
     - gps-rabbitmq
    restart: unless-stopped
+
+  api-gateway:
+   build:
+    context: ./Backend
+    dockerfile: GPS.ApiGateway/Dockerfile
+   container_name: gps-api-gateway
+   ports:
+    - "5004:8080"
+   depends_on:
+    - autenticacao-api
+    - pessoa-api
+    - proposta-api
+    - contratacao-api
+   restart: unless-stopped
+   environment:
+    - ASPNETCORE_ENVIRONMENT=Development
    
 volumes:
   rabbitmq_data:
