@@ -1,0 +1,109 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/autenticacao/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "autenticacao-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/autenticacao/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/autenticacao",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "autenticacao-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/autenticacao",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/pessoa/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "pessoa-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/pessoa/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/pessoa",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "pessoa-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/pessoa",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/proposta/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "proposta-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/proposta/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/proposta",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "proposta-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/proposta",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/contratacao/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "contratacao-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/contratacao/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/contratacao",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "contratacao-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/contratacao",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5004",
+    "RateLimitOptions": {
+      "EnableRateLimiting": true,
+      "Period": "1m",
+      "PeriodTimespan": 60,
+      "Limit": 100
+    }
+  }
+}
